@@ -20,8 +20,7 @@ export const deleteCategory = async (categoryId) => {
     })
 }
 
-export const fetchCategories = async () => {
-    return axios.get('http://localhost:8080/categories', {
-        headers: authHeaders()
-    })
+export const fetchCategories = async ({ useAuth = true } = {}) => {
+    const headers = useAuth ? authHeaders() : {};
+    return axios.get('http://localhost:8080/categories', { headers });
 }

@@ -9,7 +9,7 @@ import {toast} from 'react-hot-toast';
 
 const CategoryList = () => {
 
-  const {categories, setCategories} = useContext(AppContext);
+  const {categories, setCategories, itemsData = []} = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredCategories = categories.filter(category => 
@@ -52,7 +52,15 @@ const CategoryList = () => {
         </div>
       </div>
       <div className="row g-3 pe-2">
-        {filteredCategories.map((category, index) => (
+        {filteredCategories.map((category, index) => {
+          const count =
+            itemsData.filter(
+              (item) =>
+                item.categoryId === category.categoryId ||
+                item.categoryName === category.name
+            ).length || category.itemCount || 0;
+
+          return (
           <div key={index} className="col-12">
             <div className="card p-3 " style={{backgroundColor: category.bgColor}}>
               <div className="d-flex align-items-center">
@@ -65,7 +73,7 @@ const CategoryList = () => {
                 </div>
                 <div className="flex-grow-1">
                   <h5 className="text-white mb-1">{category.name}</h5>
-                  <p className="text-white mb-0">{category.itemCount} items</p>
+                  <p className="text-white mb-0">{count} items</p>
                 </div>
                 <div>
                   <button className="btn btn-danger btn-sm" 
@@ -77,7 +85,8 @@ const CategoryList = () => {
               </div>
           </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
 
