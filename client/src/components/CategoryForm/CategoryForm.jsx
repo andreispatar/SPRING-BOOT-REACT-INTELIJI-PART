@@ -7,6 +7,7 @@ import { addCategory } from "../../Service/CategoryService";
 
 const CategoryForm = () => {
   const { setCategories, categories } = useContext(AppContext);
+  const MAX_FILE_SIZE_MB = 1;
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [data, setData] = useState({
@@ -29,6 +30,13 @@ const CategoryForm = () => {
       setLoading(false);
       return;
     }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("You need to log in again before adding categories.");
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("category", JSON.stringify(data));
     formData.append("file", image);
@@ -46,8 +54,14 @@ const CategoryForm = () => {
       }
     }
     catch(err){
-      console.log(err);
-      toast.error("Error adding category");
+      console.error(err);
+      if (err?.response?.status === 413) {
+        toast.error(`Upload too large. Please use an image under ${MAX_FILE_SIZE_MB}MB.`);
+      } else if (err?.response?.status === 401 || err?.response?.status === 403) {
+        toast.error("Not authorized. Please log in with an admin account.");
+      } else {
+        toast.error("Error adding category");
+      }
     }
     finally{
       setLoading(false);
@@ -75,7 +89,15 @@ const CategoryForm = () => {
                   id="image"
                   className="form-control"
                   hidden
-                  onChange={(e) => setImage(e.target.files[0])}
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file && file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                      toast.error(`Image is too large. Max ${MAX_FILE_SIZE_MB}MB allowed.`);
+                      return;
+                    }
+                    setImage(file);
+                  }}
                 />
               </div>
                 <div className="mb-3">
