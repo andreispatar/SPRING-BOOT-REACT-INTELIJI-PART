@@ -95,6 +95,13 @@
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.razorpay</groupId>
+            <artifactId>razorpay-java</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
