@@ -1,0 +1,25 @@
+.category-hover:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.active-category {
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+}
+
+
+.category-image{
+    width:64px;
+    height:64px;
+    border-radius: 10% ;
+    border: 1px solid #f0f0f0;
+}

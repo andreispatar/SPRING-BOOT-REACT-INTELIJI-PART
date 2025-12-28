@@ -1,0 +1,30 @@
+.receipt-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* enable clicks only on children */
+}
+
+.receipt-popup__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.receipt-popup__content {
+  position: relative;
+  background: #1f1f1f;
+  color: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  width: min(360px, 90vw);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  z-index: 2;
+}
