@@ -28,9 +28,12 @@ public class RazorpayServiceImpl implements RazorpayService {
 
     @Override
     public RazorpayOrderResponse createOrder(Double amount, String currency) throws RazorpayException {
+
+        long amountInPaise = Math.round(amount * 100);
+
         RazorpayClient razorpayClient = new RazorpayClient(razorpayKeyId, razorpayKeySecret);
         JSONObject orderRequest = new JSONObject();
-        orderRequest.put("amount", amount * 100);
+        orderRequest.put("amount", amountInPaise);
         orderRequest.put("currency", currency);
         orderRequest.put("receipt", "order_receipt_" + System.currentTimeMillis());
         orderRequest.put("payment_capture", 1);

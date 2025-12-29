@@ -28,6 +28,7 @@ public class OrderEntity {
     private Double subtotal;
     private Double tax;
     private Double grandTotal;
+
     private LocalDateTime createdAt;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
