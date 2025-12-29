@@ -113,7 +113,7 @@ const CartSummary = ({
             let razorpayResponse;
             try {
               razorpayResponse = await createRazorpayOrder({
-                amount: Math.round(grandTotal * 100), // smallest currency unit
+                amount: Math.round(grandTotal), // smallest currency unit
                 currency: "INR",
               });
             } catch (err) {

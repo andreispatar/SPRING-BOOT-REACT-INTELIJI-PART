@@ -1,9 +1,3 @@
-/* Remove vertical scrollbar and set full height */
-body, html {
-  height: 100%;
-  overflow-y: hidden;
-}
-
 .dashboard-wrapper {
   height: 100vh;
   overflow: hidden;
