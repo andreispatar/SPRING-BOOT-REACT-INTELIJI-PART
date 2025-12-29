@@ -14,8 +14,20 @@ const DisplayCategory = ({selectedCategory, setSelectedCategory, categories }) =
     return `http://localhost:8080/${candidate.replace(/^\//, '')}`;
   };
 
+  const allCount = itemsData.length;
+
   return (
     <div className="row g-3" style={{width: '100%', margin: 0}}>
+      <div className="col-md-3 col-sm-3" style={{padding: '0 10px'}}>
+        <Category
+          categoryName="All"
+          imgUrl={assets.all}
+          bgColor="#6c757d"
+          numberOfItems={allCount}
+          isSelected={!selectedCategory}
+          onClick={() => setSelectedCategory("")}
+        />
+      </div>
       {categories.map((category) => {
         const categoryKey = category.categoryId ?? category.name;
         const count = itemsData.filter(

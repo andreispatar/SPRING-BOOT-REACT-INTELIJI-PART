@@ -1,13 +1,14 @@
 import './menubar.css'
 import { assets } from '../../assets/assets'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext.jsx'
 
 
 const Menubar = () => {
 
-  const {setAuthData} = useContext(AppContext);
+  const { setAuthData, auth } = useContext(AppContext);
+  const location = useLocation();
   const navigate = useNavigate();
 
   const logout = () => {
@@ -20,6 +21,12 @@ const Menubar = () => {
     navigate('/login');
 
   }
+
+  const isActive = (path) => {
+    return location.pathname === path
+  }
+
+  const isAdmin = auth.role === "ROLE_ADMIN";
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-2">
@@ -40,32 +47,38 @@ const Menubar = () => {
       <div className="collapse navbar-collapse p-2" id="navbarNav">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <Link className="nav-link" aria-current="page" to="/dashboard">
+            <Link className={`nav-link ${isActive('/dashboard') ? 'fw-bold text-warning' : ''}`} aria-current="page" to="/dashboard">
               Dashboard
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/explore">
+            <Link className={`nav-link ${isActive('/explore') ? 'fw-bold text-warning' : ''}`} to="/explore">
               Explore
             </Link>
           </li>
+          {
+            isAdmin && (
+              <>
+                <li className="nav-item">
+                  <Link className={`nav-link ${isActive('/manage-items') ? 'fw-bold text-warning' : ''}`} to="/manage-items">
+                    Manage Items
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={`nav-link ${isActive('/manage-category') ? 'fw-bold text-warning' : ''}`} to="/manage-category">
+                    Manage Categories
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={`nav-link ${isActive('/manage-users') ? 'fw-bold text-warning' : ''}`} to="/manage-users">
+                    Manage Users
+                  </Link>
+                </li>
+              </>
+            )
+          }
           <li className="nav-item">
-            <Link className="nav-link" to="/manage-items">
-              Manage Items
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/manage-category">
-              Manage Categories
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/manage-users">
-              Manage Users
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/orders">
+            <Link className={`nav-link ${isActive('/orders') ? 'fw-bold text-warning' : ''}`} to="/orders">
               Order History
             </Link>
           </li>
