@@ -9,8 +9,13 @@ import in.bushansirgur.billingsoftware.service.CategoryService;
 import in.bushansirgur.billingsoftware.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,6 +33,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse add(CategoryRequest request, MultipartFile file) {
         String imgUrl = fileUploadService.uploadFile(file);
+
+        //Asta e daca vreau sa salvez imaginile lcoal la mine in PC
+
+        /*String filename = UUID.randomUUID().toString()+"."+ StringUtils.getFilenameExtension(file.getOriginalFilename());
+        Path uploadPath = Paths.get("Uploads").toAbsolutePath().normalize();
+        Files.createDirectories(uploadPath);
+        Path targetPath = uploadPath.resolve(filename);
+        Files.copy(file.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        String imgUrl = "http://localhost:8080/Uploads/"+filename;*/
+
         CategoryEntity newCategory = convertToEntity(request);
         newCategory.setImgUrl(imgUrl);
         newCategory = categoryRepository.save(newCategory);
