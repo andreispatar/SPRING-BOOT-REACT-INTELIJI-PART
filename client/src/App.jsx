@@ -7,6 +7,7 @@ import ManageCategory from './pages/ManageCategory/ManageCategory.jsx'
 import ManageUsers from './pages/ManageUsers/ManageUsers.jsx'
 import { Toaster } from 'react-hot-toast'
 import Login from './pages/Login/Login.jsx'
+import OrderHistory from './pages/OrderHistory/OrderHistory.jsx'
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/manage-category" element={<ManageCategory />} />
         <Route path="/manage-users" element={<ManageUsers />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/orders" element={<OrderHistory />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
     </div>
